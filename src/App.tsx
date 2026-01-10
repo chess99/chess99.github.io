@@ -20,20 +20,20 @@ function FeaturedItem({
 }) {
   return (
     <a
-      className="group flex items-start gap-3 rounded-2xl border border-ink/10 bg-white/30 px-3 py-3 transition-colors duration-200 ease-ios hover:bg-white/45 focus-ring"
+      className="group flex items-start gap-3 rounded-2xl border border-ink/10 bg-white/30 px-3 py-3 transition-all duration-200 ease-ios hover:bg-white/60 hover:shadow-sm hover:border-ink/15 active:scale-[0.98] focus-ring"
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
     >
-      <div className="mt-1 h-9 w-9 shrink-0 overflow-hidden rounded-xl border border-ink/10 bg-gradient-to-br from-black/10 to-black/0" />
+      <div className="mt-1 h-9 w-9 shrink-0 overflow-hidden rounded-xl border border-ink/10 bg-gradient-to-br from-ink/10 to-transparent opacity-80" />
       <div className="min-w-0">
-        <div className="text-[12px] tracking-[0.14em] text-ink/55">
+        <div className="text-[12px] tracking-[0.14em] text-ink/60 group-hover:text-ink/80 transition-colors">
           {ordinal ?? ''}
         </div>
         <div className="mt-0.5 truncate text-[14px] font-medium text-ink">
           {title}
         </div>
-        <div className="mt-1 text-[12px] leading-relaxed text-ink/60">
+        <div className="mt-1 text-[12px] leading-relaxed text-ink/70">
           {description}
         </div>
       </div>
@@ -59,9 +59,9 @@ export default function App() {
   }, [])
 
   return (
-    <div className="paper min-h-screen">
-      <main className="mx-auto w-full max-w-[1200px] px-5 py-10 md:px-10 md:py-14">
-        <div className="grid items-start gap-10 md:grid-cols-12 md:gap-12">
+    <div className="paper flex min-h-screen flex-col">
+      <main className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col justify-center px-5 py-20 md:px-10 md:py-32">
+        <div className="grid items-center gap-16 md:grid-cols-12 md:gap-12">
           {/* Left: statement */}
           <motion.section
             className="md:col-span-8"
@@ -72,17 +72,13 @@ export default function App() {
             }
             transition={{ duration: reduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="text-[12px] tracking-[0.18em] text-ink/55">
-              CONCEPT B: TYPOGRAPHIC FOCUS
-            </div>
-
-            <h1 className="mt-8 whitespace-pre-line font-serif text-[58px] leading-[0.92] tracking-[-0.02em] text-ink md:mt-14 md:text-[92px]">
+            <h1 className="whitespace-pre-line font-serif text-[58px] leading-[0.92] tracking-[-0.02em] text-ink md:text-[92px]">
               {profile.statement}
             </h1>
 
             <div className="mt-10 flex items-center gap-3 text-ink/70 md:mt-12">
               <a
-                className="rounded-full p-2 transition-colors duration-200 ease-ios hover:bg-black/5 hover:text-ink focus-ring"
+                className="rounded-full p-2 transition-all duration-200 ease-ios hover:bg-black/5 hover:text-ink active:scale-95 focus-ring"
                 href={profile.github}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -91,7 +87,7 @@ export default function App() {
                 <IconGitHub className="h-5 w-5" />
               </a>
               <a
-                className="rounded-full p-2 transition-colors duration-200 ease-ios hover:bg-black/5 hover:text-ink focus-ring"
+                className="rounded-full p-2 transition-all duration-200 ease-ios hover:bg-black/5 hover:text-ink active:scale-95 focus-ring"
                 href={`mailto:${profile.email}`}
                 aria-label="Email"
               >
@@ -102,11 +98,11 @@ export default function App() {
 
           {/* Right: featured */}
           <motion.aside
-            className="md:col-span-4"
+            className="md:col-span-4 md:pt-4"
             animate={archiveOpen && !reduceMotion ? { opacity: 0.9 } : { opacity: 1 }}
             transition={{ duration: reduceMotion ? 0 : 0.22, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="text-[11px] tracking-[0.18em] text-ink/55">
+            <div className="text-[11px] font-medium tracking-[0.18em] text-ink/60">
               FEATURED PROJECTS
             </div>
             <div className="mt-4 grid gap-3">{featured}</div>
@@ -114,13 +110,29 @@ export default function App() {
             <button
               type="button"
               onClick={() => setArchiveOpen(true)}
-              className="mt-6 inline-flex items-center gap-2 text-[13px] text-ink/80 underline decoration-ink/25 underline-offset-4 transition-colors duration-200 ease-ios hover:text-ink focus-ring"
+              className="group mt-6 inline-flex items-center gap-2 text-[13px] font-medium text-ink/80 transition-colors duration-200 ease-ios hover:text-ink focus-ring"
             >
-              View all <span aria-hidden="true">→</span>
+              <span className="underline decoration-ink/25 underline-offset-4 transition-all group-hover:decoration-ink/50">
+                View all projects
+              </span>
+              <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">
+                →
+              </span>
             </button>
           </motion.aside>
         </div>
       </main>
+
+      <footer className="mx-auto w-full max-w-[1200px] px-5 py-8 text-[12px] text-ink/40 md:px-10">
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <div>
+            © {new Date().getFullYear()} {profile.name}. All rights reserved.
+          </div>
+          <div className="flex gap-6">
+            <span className="opacity-50">Designed & Built with Care</span>
+          </div>
+        </div>
+      </footer>
 
       <ArchiveDrawer
         open={archiveOpen}

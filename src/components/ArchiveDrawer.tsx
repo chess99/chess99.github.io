@@ -16,7 +16,7 @@ function useBodyScrollLock(locked: boolean) {
 
 function SkeletonRow() {
   return (
-    <div className="flex gap-4 py-5">
+    <div className="flex animate-pulse gap-4 py-5">
       <div className="h-20 w-36 shrink-0 rounded-lg bg-black/5" />
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
@@ -69,18 +69,18 @@ export function ArchiveDrawer({
           href={p.href}
           target={external ? '_blank' : undefined}
           rel={external ? 'noopener noreferrer' : undefined}
-          className="group block rounded-2xl border border-ink/10 bg-white/30 px-4 py-4 transition-colors duration-200 ease-ios hover:bg-white/45 focus-ring"
+          className="group block rounded-2xl border border-ink/10 bg-white/30 px-4 py-4 transition-all duration-200 ease-ios hover:bg-white/60 hover:shadow-sm hover:border-ink/15 focus-ring"
           whileHover={reduceMotion ? undefined : { y: -2 }}
           whileTap={reduceMotion ? undefined : { y: 0, scale: 0.995 }}
         >
           <div className="flex gap-4">
-            <div className="h-20 w-36 shrink-0 overflow-hidden rounded-xl border border-ink/10 bg-gradient-to-br from-black/5 to-black/0" />
+            <div className="h-20 w-36 shrink-0 overflow-hidden rounded-xl border border-ink/10 bg-gradient-to-br from-ink/5 to-transparent opacity-80" />
 
             <div className="min-w-0 flex-1">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <h3 className="truncate font-serif text-[22px] leading-tight text-ink">
+                    <h3 className="truncate font-serif text-[22px] leading-tight text-ink group-hover:text-ink/90 transition-colors">
                       {p.title}
                     </h3>
                     {external ? (
@@ -111,7 +111,7 @@ export function ArchiveDrawer({
             type="button"
             aria-label="Close archive"
             tabIndex={-1}
-            className="fixed inset-0 z-40 cursor-default bg-black/10"
+            className="fixed inset-0 z-40 cursor-default bg-black/10 backdrop-blur-[2px]"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -121,7 +121,7 @@ export function ArchiveDrawer({
 
           {/* Drawer */}
           <motion.aside
-            className="fixed inset-y-0 right-0 z-50 flex w-full flex-col border-l border-ink/10 bg-paper-2/90 shadow-subtle backdrop-blur md:w-[min(720px,60vw)]"
+            className="fixed inset-y-0 right-0 z-50 flex w-full flex-col border-l border-ink/10 bg-paper-2/90 shadow-subtle backdrop-blur-md backdrop-saturate-150 md:w-[min(720px,60vw)]"
             role="dialog"
             aria-modal="true"
             aria-label="Complete Archive"
@@ -144,7 +144,7 @@ export function ArchiveDrawer({
                 type="button"
                 onClick={onClose}
                 aria-label="Close"
-                className="rounded-full p-2 text-ink/70 transition-colors duration-200 ease-ios hover:bg-black/5 hover:text-ink focus-ring"
+                className="rounded-full p-2 text-ink/70 transition-all duration-200 ease-ios hover:bg-black/5 hover:text-ink active:scale-95 focus-ring"
               >
                 <IconClose className="h-5 w-5" />
               </button>

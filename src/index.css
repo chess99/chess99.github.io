@@ -28,7 +28,28 @@
   }
 
   ::selection {
-    background: rgba(26, 26, 26, 0.12);
+    background: rgba(26, 26, 26, 0.16);
+    color: inherit;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(26, 26, 26, 0.15);
+    border-radius: 9999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(26, 26, 26, 0.3);
   }
 }
 
