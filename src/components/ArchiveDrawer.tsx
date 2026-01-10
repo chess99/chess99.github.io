@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion'
 import { useEffect, useMemo, useRef } from 'react'
 import type { Project } from '../data/projects'
 import { IconClose, IconExternal } from './icons'
@@ -6,28 +6,35 @@ import { IconClose, IconExternal } from './icons'
 function useBodyScrollLock(locked: boolean) {
   useEffect(() => {
     if (!locked) return
-    const prev = document.documentElement.style.overflow
-    document.documentElement.style.overflow = 'hidden'
+    const originalStyle = window.getComputedStyle(document.body).overflow
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+    
+    // Prevent layout shift
+    document.body.style.paddingRight = `${scrollbarWidth}px`
+    document.body.style.overflow = 'hidden'
+    
     return () => {
-      document.documentElement.style.overflow = prev
+      document.body.style.overflow = originalStyle
+      document.body.style.paddingRight = '0px'
     }
   }, [locked])
 }
 
-function SkeletonRow() {
-  return (
-    <div className="flex animate-pulse gap-4 py-5">
-      <div className="h-20 w-36 shrink-0 rounded-lg bg-black/5" />
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <div className="h-5 w-40 rounded bg-black/5" />
-          <div className="h-5 w-16 rounded bg-black/5" />
-        </div>
-        <div className="mt-2 h-4 w-[92%] rounded bg-black/5" />
-        <div className="mt-2 h-4 w-[70%] rounded bg-black/5" />
-      </div>
-    </div>
-  )
+// Staggered animation variants
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 350, damping: 25 } },
 }
 
 export function ArchiveDrawer({
@@ -66,6 +73,7 @@ export function ArchiveDrawer({
       return (
         <motion.a
           key={p.id}
+          variants={reduceMotion ? undefined : itemVariants}
           href={p.href}
           target={external ? '_blank' : undefined}
           rel={external ? 'noopener noreferrer' : undefined}
@@ -151,35 +159,14 @@ export function ArchiveDrawer({
             </header>
 
             <div className="flex-1 overflow-auto px-6 py-4">
-              {/* Skeleton → content crossfade (no state needed; drawer unmounts on close) */}
-              <div className="relative">
-                <motion.div
-                  initial={{ opacity: 1 }}
-                  animate={{
-                    opacity: 0,
-                    transition: { delay: reduceMotion ? 0 : 0.32, duration: reduceMotion ? 0 : 0.18 },
-                    transitionEnd: { display: 'none' },
-                  }}
-                >
-                  <div className="divide-y divide-ink/10">
-                    <SkeletonRow />
-                    <SkeletonRow />
-                    <SkeletonRow />
-                    <SkeletonRow />
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: 1,
-                    transition: { delay: reduceMotion ? 0 : 0.32, duration: reduceMotion ? 0 : 0.22 },
-                  }}
-                  className="grid gap-3 py-3"
-                >
-                  {rows}
-                </motion.div>
-              </div>
+              <motion.div
+                className="grid gap-3 py-3"
+                variants={reduceMotion ? undefined : containerVariants}
+                initial="hidden"
+                animate="show"
+              >
+                {rows}
+              </motion.div>
             </div>
           </motion.aside>
         </>
