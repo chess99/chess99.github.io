@@ -77,30 +77,30 @@ export function ArchiveDrawer({
           href={p.href}
           target={external ? '_blank' : undefined}
           rel={external ? 'noopener noreferrer' : undefined}
-          className="group block rounded-2xl border border-ink/10 bg-white/30 px-4 py-4 transition-all duration-200 ease-ios hover:bg-white/60 hover:shadow-sm hover:border-ink/15 focus-ring"
+          className="group block rounded-2xl border border-ink/10 bg-white/30 px-3 py-3 transition-all duration-200 ease-ios hover:bg-white/60 hover:shadow-sm hover:border-ink/15 focus-ring md:px-4 md:py-4"
           whileHover={reduceMotion ? undefined : { y: -2 }}
           whileTap={reduceMotion ? undefined : { y: 0, scale: 0.995 }}
         >
-          <div className="flex gap-4">
-            <div className="h-20 w-36 shrink-0 overflow-hidden rounded-xl border border-ink/10 bg-gradient-to-br from-ink/5 to-transparent opacity-80" />
+          <div className="flex gap-3 md:gap-4">
+            <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-ink/10 bg-gradient-to-br from-ink/5 to-transparent opacity-80 md:h-20 md:w-36" />
 
             <div className="min-w-0 flex-1">
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start justify-between gap-2 md:gap-3">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <h3 className="truncate font-serif text-[22px] leading-tight text-ink group-hover:text-ink/90 transition-colors">
+                    <h3 className="truncate font-serif text-[18px] leading-tight text-ink group-hover:text-ink/90 transition-colors md:text-[22px]">
                       {p.title}
                     </h3>
                     {external ? (
-                      <IconExternal className="h-4 w-4 shrink-0 text-ink/55 opacity-0 transition-opacity duration-200 ease-ios group-hover:opacity-100" />
+                      <IconExternal className="h-3.5 w-3.5 shrink-0 text-ink/55 opacity-0 transition-opacity duration-200 ease-ios group-hover:opacity-100 md:h-4 md:w-4" />
                     ) : null}
                   </div>
                 </div>
-                <span className="shrink-0 rounded-full bg-black/5 px-2 py-1 text-[12px] text-ink/70">
+                <span className="shrink-0 rounded-full bg-black/5 px-2 py-0.5 text-[10px] text-ink/70 md:py-1 md:text-[12px]">
                   {p.category}
                 </span>
               </div>
-              <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-ink/70">
+              <p className="mt-1 line-clamp-2 text-[12px] leading-relaxed text-ink/70 md:mt-2 md:text-[13px]">
                 {p.description}
               </p>
             </div>
@@ -138,9 +138,9 @@ export function ArchiveDrawer({
             exit={{ x: '100%' }}
             transition={{ duration: reduceMotion ? 0 : 0.34, ease: [0.22, 1, 0.36, 1] }}
           >
-            <header className="flex items-center justify-between gap-4 border-b border-ink/10 px-6 py-5">
+            <header className="flex items-center justify-between gap-4 border-b border-ink/10 px-4 py-4 md:px-6 md:py-5">
               <div>
-                <div className="font-serif text-[22px] leading-none text-ink">
+                <div className="font-serif text-[20px] leading-none text-ink md:text-[22px]">
                   Complete Archive
                 </div>
                 <div className="mt-2 text-[12px] text-ink/60">
@@ -158,7 +158,7 @@ export function ArchiveDrawer({
               </button>
             </header>
 
-            <div className="flex-1 overflow-auto px-6 py-4">
+            <div className="flex-1 overflow-auto px-4 py-4 md:px-6">
               <motion.div
                 className="grid gap-3 py-3"
                 variants={reduceMotion ? undefined : containerVariants}
