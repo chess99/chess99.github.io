@@ -57,4 +57,12 @@
   .focus-ring {
     @apply outline-none ring-2 ring-ink/20 ring-offset-2 ring-offset-paper;
   }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

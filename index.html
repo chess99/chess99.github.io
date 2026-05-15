@@ -16,6 +16,16 @@
   </head>
   <body>
     <div id="root"><!--app-html--></div>
+    <script>
+      // Restore SPA path from 404 redirect
+      (function() {
+        var path = sessionStorage.getItem('spa_redirect');
+        if (path && path !== '/') {
+          sessionStorage.removeItem('spa_redirect');
+          history.replaceState(null, '', path);
+        }
+      })();
+    </script>
     <script type="module" src="/src/entry-client.tsx"></script>
   </body>
 </html>
