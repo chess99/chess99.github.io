@@ -9,13 +9,6 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'blog',
-    title: '博客',
-    description: 'AI 编程、软件工程与技术思考。',
-    href: 'https://blog.cearl.cc',
-    tags: ['WRITING', 'HEXO'],
-  },
-  {
     id: 'news-intel',
     title: 'News Intel',
     description: 'AI 驱动的新闻聚合与摘要。',
