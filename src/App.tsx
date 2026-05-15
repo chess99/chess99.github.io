@@ -23,7 +23,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
       href={project.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col rounded-xl border border-ink/[0.08] bg-white/60 overflow-hidden hover:border-ink/20 hover:shadow-md transition-all duration-200 active:scale-[0.99]"
+      className="group flex flex-col rounded-xl border border-ink/[0.08] bg-white/60 overflow-hidden hover:border-ink/20 hover:shadow-md transition-all duration-200 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/30 focus-visible:ring-offset-2"
     >
       <div className="h-[110px] w-full bg-gradient-to-br from-ink/[0.05] to-ink/[0.02] overflow-hidden sm:h-[130px]">
         {project.cover ? (
@@ -116,34 +116,36 @@ function ProfileHeader() {
 
   return (
     <div className="flex flex-col gap-5">
-      {/* Mobile: centered vertical layout (idoubi style) */}
+      {/* Single h1 — avoids duplicate heading; layout differs by breakpoint */}
+      <h1 className="sr-only lg:not-sr-only text-[28px] font-bold text-ink leading-tight tracking-tight hidden lg:block">
+        {profile.name}
+      </h1>
+
+      {/* Mobile: centered vertical layout */}
       <div className="flex flex-col items-center gap-5 text-center lg:hidden">
-        {/* Avatar — larger on mobile like idoubi */}
         <div className="h-32 w-32 overflow-hidden rounded-2xl border border-ink/10 shadow-sm">
           <img src={profile.avatar} alt={profile.name} className="h-full w-full object-cover" />
         </div>
 
         <div className="flex flex-col gap-2">
-          <h1 className="text-[26px] font-bold text-ink leading-tight tracking-tight">
+          {/* Visible name on mobile — not h1 to avoid duplicate */}
+          <p className="text-[26px] font-bold text-ink leading-tight tracking-tight" aria-hidden="true">
             {profile.name}
-          </h1>
+          </p>
           <p className="text-[13px] text-ink/55 leading-relaxed">{profile.bio}</p>
         </div>
 
-        {/* Left-bar slogan like idoubi */}
         <div className="flex items-start gap-2.5 text-left">
           <div className="mt-1 h-4 w-0.5 flex-shrink-0 bg-amber-500" />
           <p className="text-[13px] text-ink/70 leading-relaxed">{profile.slogan}</p>
         </div>
 
-        {/* Social icons — centered row */}
         <div className="flex items-center justify-center gap-2.5 flex-wrap">
           {socialIcons}
         </div>
 
-        {/* Nav links — horizontal on mobile */}
         <nav className="flex items-center gap-5 text-[13px] text-ink/60">
-          <a href="https://blog.cearl.cc" className="flex items-center gap-1.5 hover:text-ink transition-colors py-1">
+          <a href="https://blog.cearl.cc" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-ink transition-colors py-1">
             <svg className="h-4 w-4 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
             </svg>
@@ -152,15 +154,11 @@ function ProfileHeader() {
         </nav>
       </div>
 
-      {/* Desktop: original vertical layout */}
+      {/* Desktop: vertical layout below h1 */}
       <div className="hidden lg:flex lg:flex-col lg:gap-6">
         <div className="h-44 w-44 overflow-hidden rounded-2xl border border-ink/10 shadow-sm">
-          <img src={profile.avatar} alt={profile.name} className="h-full w-full object-cover" />
+          <img src={profile.avatar} alt="" className="h-full w-full object-cover" />
         </div>
-
-        <h1 className="text-[28px] font-bold text-ink leading-tight tracking-tight">
-          {profile.name}
-        </h1>
 
         <p className="text-[13px] text-ink/55 -mt-4">{profile.bio}</p>
         <p className="text-[13px] text-ink/70 leading-relaxed -mt-2">{profile.slogan}</p>
@@ -201,7 +199,7 @@ function NavLink({ href, icon, children }: { href: string; icon: 'book'; childre
   }
 
   return (
-    <a href={href} className="flex items-center gap-2.5 text-[13px] text-ink/60 hover:text-ink transition-colors py-0.5">
+    <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-[13px] text-ink/60 hover:text-ink transition-colors py-0.5">
       <span className="opacity-60">{icons[icon]}</span>
       {children}
     </a>
