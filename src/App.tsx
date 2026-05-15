@@ -1,144 +1,185 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { useMemo, useState } from 'react'
-import { ArchiveDrawer } from './components/ArchiveDrawer'
-import { IconGitHub, IconMail } from './components/icons'
-import { featuredProjects, projects } from './data/projects'
 import { profile } from './data/profile'
+import { projects } from './data/projects'
+import {
+  IconGitHub,
+  IconMail,
+  IconJike,
+  IconXiaohongshu,
+  IconWechat,
+} from './components/icons'
 
-function FeaturedItem({
-  ordinal,
+function Nav() {
+  return (
+    <nav className="mx-auto flex w-full max-w-[860px] items-center justify-between px-5 py-6 md:px-8 md:py-8">
+      <a
+        href="/"
+        className="font-serif text-[18px] font-medium text-ink transition-opacity hover:opacity-70"
+      >
+        {profile.name}
+      </a>
+      <div className="flex items-center gap-1 text-ink/60">
+        <a
+          href={profile.social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          className="rounded-full p-2 transition-all duration-200 ease-ios hover:bg-black/5 hover:text-ink active:scale-95 focus-ring"
+        >
+          <IconGitHub className="h-4 w-4" />
+        </a>
+        <span
+          title="即刻（即将添加）"
+          aria-label="即刻"
+          className="rounded-full p-2 cursor-default text-ink/30"
+        >
+          <IconJike className="h-4 w-4" />
+        </span>
+        <span
+          title="小红书（即将添加）"
+          aria-label="小红书"
+          className="rounded-full p-2 cursor-default text-ink/30"
+        >
+          <IconXiaohongshu className="h-4 w-4" />
+        </span>
+        <span
+          title="微信公众号（即将添加）"
+          aria-label="微信公众号"
+          className="rounded-full p-2 cursor-default text-ink/30"
+        >
+          <IconWechat className="h-4 w-4" />
+        </span>
+        <a
+          href={`mailto:${profile.email}`}
+          aria-label="Email"
+          className="rounded-full p-2 transition-all duration-200 ease-ios hover:bg-black/5 hover:text-ink active:scale-95 focus-ring"
+        >
+          <IconMail className="h-4 w-4" />
+        </a>
+      </div>
+    </nav>
+  )
+}
+
+function Hero() {
+  const reduceMotion = useReducedMotion()
+  return (
+    <motion.section
+      className="mx-auto w-full max-w-[860px] px-5 pb-16 pt-10 md:px-8 md:pb-20 md:pt-14"
+      initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:gap-10">
+        <img
+          src={profile.avatar}
+          alt={profile.name}
+          className="h-20 w-20 rounded-full border border-ink/10 object-cover md:h-24 md:w-24"
+        />
+        <div>
+          <h1 className="font-serif text-[32px] leading-tight text-ink md:text-[40px]">
+            {profile.name}
+            <span className="ml-3 font-sans text-[18px] font-normal text-ink/50 md:text-[22px]">
+              {profile.nameEn}
+            </span>
+          </h1>
+          <p className="mt-2 text-[15px] font-medium text-ink/80 md:text-[17px]">
+            {profile.slogan}
+          </p>
+          <p className="mt-2 max-w-[480px] text-[13px] leading-relaxed text-ink/60 md:text-[14px]">
+            {profile.bio}
+          </p>
+        </div>
+      </div>
+    </motion.section>
+  )
+}
+
+function ProjectCard({
   title,
   description,
   href,
-  external,
+  tags,
+  index,
 }: {
-  ordinal?: string
   title: string
   description: string
   href: string
-  external: boolean
+  tags: string[]
+  index: number
 }) {
+  const reduceMotion = useReducedMotion()
   return (
-    <a
-      className="group flex items-start gap-3 rounded-2xl border border-ink/10 bg-white/30 px-3 py-3 transition-all duration-200 ease-ios hover:bg-white/60 hover:shadow-sm hover:border-ink/15 active:scale-[0.98] focus-ring"
+    <motion.a
       href={href}
-      target={external ? '_blank' : undefined}
-      rel={external ? 'noopener noreferrer' : undefined}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex flex-col gap-3 rounded-2xl border border-ink/10 bg-white/40 p-4 transition-all duration-200 ease-ios hover:bg-white/70 hover:shadow-sm hover:border-ink/15 active:scale-[0.98] focus-ring"
+      initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.4,
+        delay: index * 0.06,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
-      <div className="mt-1 h-9 w-9 shrink-0 overflow-hidden rounded-xl border border-ink/10 bg-gradient-to-br from-ink/10 to-transparent opacity-80" />
-      <div className="min-w-0">
-        <div className="text-[12px] tracking-[0.14em] text-ink/60 group-hover:text-ink/80 transition-colors">
-          {ordinal ?? ''}
-        </div>
-        <div className="mt-0.5 truncate text-[14px] font-medium text-ink">
+      <div className="h-32 w-full rounded-xl border border-ink/[0.08] bg-gradient-to-br from-ink/[0.06] to-transparent" />
+      <div>
+        <h3 className="text-[15px] font-medium text-ink group-hover:text-ink/90 transition-colors">
           {title}
-        </div>
-        <div className="mt-1 text-[12px] leading-relaxed text-ink/70">
-          {description}
+        </h3>
+        <p className="mt-1 text-[12px] leading-relaxed text-ink/60">{description}</p>
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full bg-black/5 px-2 py-0.5 text-[10px] font-medium tracking-wide text-ink/60"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
-    </a>
+    </motion.a>
+  )
+}
+
+function Projects() {
+  return (
+    <section className="mx-auto w-full max-w-[860px] px-5 pb-20 md:px-8">
+      <div className="mb-5 text-[11px] font-medium tracking-[0.18em] text-ink/50">
+        PROJECTS
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p, i) => (
+          <ProjectCard
+            key={p.id}
+            title={p.title}
+            description={p.description}
+            href={p.href}
+            tags={p.tags}
+            index={i}
+          />
+        ))}
+      </div>
+    </section>
   )
 }
 
 export default function App() {
-  const reduceMotion = useReducedMotion()
-  const [archiveOpen, setArchiveOpen] = useState(false)
-
-  const featured = useMemo(() => {
-    return featuredProjects.slice(0, 4).map((p) => (
-      <FeaturedItem
-        key={p.id}
-        ordinal={p.ordinal}
-        title={p.title}
-        description={p.description}
-        href={p.href}
-        external={(p.linkType ?? 'external') === 'external'}
-      />
-    ))
-  }, [])
-
   return (
     <div className="paper flex min-h-screen flex-col">
-      <main className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col justify-center px-5 py-20 md:px-10 md:py-32">
-        <div className="grid items-center gap-16 md:grid-cols-12 md:gap-12">
-          {/* Left: statement */}
-          <motion.section
-            className="md:col-span-8"
-            animate={
-              archiveOpen && !reduceMotion
-                ? { x: -16, opacity: 0.72 }
-                : { x: 0, opacity: 1 }
-            }
-            transition={{ duration: reduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <h1 className="whitespace-pre-line font-serif text-[58px] leading-[0.92] tracking-[-0.02em] text-ink md:text-[92px]">
-              {profile.statement}
-            </h1>
-
-            <div className="mt-10 flex items-center gap-3 text-ink/70 md:mt-12">
-              <a
-                className="rounded-full p-2 transition-all duration-200 ease-ios hover:bg-black/5 hover:text-ink active:scale-95 focus-ring"
-                href={profile.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-              >
-                <IconGitHub className="h-5 w-5" />
-              </a>
-              <a
-                className="rounded-full p-2 transition-all duration-200 ease-ios hover:bg-black/5 hover:text-ink active:scale-95 focus-ring"
-                href={`mailto:${profile.email}`}
-                aria-label="Email"
-              >
-                <IconMail className="h-5 w-5" />
-              </a>
-            </div>
-          </motion.section>
-
-          {/* Right: featured */}
-          <motion.aside
-            className="md:col-span-4 md:pt-4"
-            animate={archiveOpen && !reduceMotion ? { opacity: 0.9 } : { opacity: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 0.22, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="text-[11px] font-medium tracking-[0.18em] text-ink/60">
-              FEATURED PROJECTS
-            </div>
-            <div className="mt-4 grid gap-3">{featured}</div>
-
-            <button
-              type="button"
-              onClick={() => setArchiveOpen(true)}
-              className="group mt-6 inline-flex items-center gap-2 text-[13px] font-medium text-ink/80 transition-colors duration-200 ease-ios hover:text-ink focus-ring"
-            >
-              <span className="underline decoration-ink/25 underline-offset-4 transition-all group-hover:decoration-ink/50">
-                View all projects
-              </span>
-              <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">
-                →
-              </span>
-            </button>
-          </motion.aside>
-        </div>
+      <Nav />
+      <main className="flex-1">
+        <Hero />
+        <Projects />
       </main>
-
-      <footer className="mx-auto w-full max-w-[1200px] px-5 py-8 text-[12px] text-ink/40 md:px-10">
-        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <div>
-            © {new Date().getFullYear()} {profile.name}. All rights reserved.
-          </div>
-          <div className="flex gap-6">
-            <span className="opacity-50">Designed & Built with Care</span>
-          </div>
+      <footer className="mx-auto w-full max-w-[860px] px-5 py-6 text-[12px] text-ink/40 md:px-8">
+        <div className="flex items-center justify-between">
+          <span suppressHydrationWarning>© {new Date().getFullYear()} {profile.name}</span>
+          <span>{profile.domain}</span>
         </div>
       </footer>
-
-      <ArchiveDrawer
-        open={archiveOpen}
-        onClose={() => setArchiveOpen(false)}
-        projects={projects}
-      />
     </div>
   )
 }
