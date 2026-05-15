@@ -31,3 +31,30 @@ export function IconClose(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export function IconJike({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" />
+      <path fill="white" d="M8.5 9.5h7v1.5h-7zM8.5 13h7v1.5h-7z" />
+    </svg>
+  )
+}
+
+export function IconXiaohongshu({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="4" />
+      <path fill="white" d="M8 8h8v2H8zM8 12h8v2H8zM8 16h5v2H8z" />
+    </svg>
+  )
+}
+
+export function IconWechat({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M9.5 4C5.36 4 2 6.69 2 10c0 1.89 1.08 3.57 2.78 4.73L4 17l2.5-1.25c.96.27 1.96.25 2.96.25H9.5C9.18 15.37 9 14.7 9 14c0-3.31 3.13-6 7-6h.5C15.91 5.3 12.93 4 9.5 4zm-1.75 3.5a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm3.5 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z" />
+      <path d="M16 9c-3.31 0-6 2.24-6 5s2.69 5 6 5c.73 0 1.43-.12 2.08-.33L20 20l-.67-2.27C20.6 16.73 22 15.43 22 14c0-2.76-2.69-5-6-5zm-1.5 3.5a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm3 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z" />
+    </svg>
+  )
+}
