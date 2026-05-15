@@ -1,84 +1,53 @@
-export type ProjectCategory =
-  | 'Tool'
-  | 'Web App'
-  | 'Design'
-  | 'Library'
-  | 'Note'
-  | 'Other'
-
-export type ProjectLinkType = 'external' | 'internal'
-
 export interface Project {
   id: string
   title: string
   description: string
-  category: ProjectCategory
   href: string
-  linkType?: ProjectLinkType
-  featured?: boolean
-  /** Optional small label shown in featured list, e.g. "01." */
-  ordinal?: string
+  tags: string[]
+  cover?: string
 }
 
 export const projects: Project[] = [
   {
     id: 'blog',
-    title: 'Blog',
-    description: 'Notes, essays, and technical write-ups.',
-    category: 'Note',
-    href: '/blog/',
-    linkType: 'internal',
-    featured: true,
-    ordinal: '01.',
+    title: '博客',
+    description: 'AI 编程、软件工程与技术思考。',
+    href: 'https://blog.cearl.cc',
+    tags: ['WRITING', 'HEXO'],
   },
   {
-    id: 'github',
-    title: 'GitHub',
-    description: 'Projects, experiments, and code.',
-    category: 'Other',
-    href: 'https://github.com/chess99',
-    linkType: 'external',
-    featured: true,
-    ordinal: '02.',
+    id: 'news-intel',
+    title: 'News Intel',
+    description: 'AI 驱动的新闻聚合与摘要。',
+    href: 'https://news.cearl.cc',
+    tags: ['AI', 'NEWS'],
   },
   {
-    id: 'minimal-notes',
-    title: 'Minimal Notes',
-    description: 'A small web app for focused writing.',
-    category: 'Web App',
-    href: 'https://example.com',
-    linkType: 'external',
-    featured: true,
-    ordinal: '03.',
+    id: 'ai-reading',
+    title: 'AI Reading',
+    description: 'AI 相关论文与资料的阅读笔记。',
+    href: 'https://cearl.cc/ai-reading/',
+    tags: ['AI', 'NOTES'],
   },
   {
-    id: 'css-experiments',
-    title: 'CSS Experiments',
-    description: 'Typography & layout studies.',
-    category: 'Design',
-    href: 'https://example.com',
-    linkType: 'external',
-    featured: true,
-    ordinal: '04.',
-  },
-  // Archive-only samples
-  {
-    id: 'project-nebula',
-    title: 'Project Nebula',
-    description: 'A clean admin template and data dashboard starter.',
-    category: 'Tool',
-    href: 'https://example.com',
-    linkType: 'external',
+    id: 'tidy',
+    title: 'Tidy',
+    description: '个人工具集。',
+    href: 'https://github.com/chess99/tidy',
+    tags: ['TOOL'],
   },
   {
-    id: 'library-something',
-    title: 'Small Library',
-    description: 'Tiny utilities with strict types and tests.',
-    category: 'Library',
-    href: 'https://example.com',
-    linkType: 'external',
+    id: 'mp-lens',
+    title: 'MP Lens',
+    description: '微信小程序分析工具。',
+    href: 'https://github.com/chess99/mp-lens',
+    tags: ['TOOL', 'WECHAT'],
+  },
+  {
+    id: 'trading-os',
+    title: 'Trading OS',
+    description: '量化交易系统探索。',
+    href: 'https://github.com/chess99/trading-os',
+    tags: ['TRADING', 'QUANT'],
   },
 ]
-
-export const featuredProjects = projects.filter((p) => p.featured)
-export const archiveProjects = projects.filter((p) => !p.featured)
