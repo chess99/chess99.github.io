@@ -51,11 +51,11 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 }
 
 function SocialLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+  const isMailto = href.startsWith('mailto:')
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...(!isMailto && { target: '_blank', rel: 'noopener noreferrer' })}
       aria-label={label}
       className="flex h-11 w-11 items-center justify-center rounded-xl border border-ink/[0.12] bg-white/60 text-ink/60 hover:text-ink hover:border-ink/25 hover:bg-white/90 transition-all active:scale-95 shadow-sm"
     >
@@ -67,6 +67,8 @@ function SocialLink({ href, label, children }: { href: string; label: string; ch
 function SocialDisabled({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <span
+      role="img"
+      aria-label={label}
       title={label}
       className="flex h-11 w-11 items-center justify-center rounded-xl border border-ink/[0.08] bg-white/30 text-ink/25 cursor-default shadow-sm"
     >
@@ -116,8 +118,8 @@ function ProfileHeader() {
 
   return (
     <div className="flex flex-col gap-5">
-      {/* Single h1 — avoids duplicate heading; layout differs by breakpoint */}
-      <h1 className="sr-only lg:not-sr-only text-[28px] font-bold text-ink leading-tight tracking-tight hidden lg:block">
+      {/* Single h1 — sr-only on mobile (screen readers announce it), visible on desktop */}
+      <h1 className="sr-only lg:not-sr-only lg:text-[28px] lg:font-bold lg:text-ink lg:leading-tight lg:tracking-tight">
         {profile.name}
       </h1>
 
@@ -128,7 +130,7 @@ function ProfileHeader() {
         </div>
 
         <div className="flex flex-col gap-2">
-          {/* Visible name on mobile — not h1 to avoid duplicate */}
+          {/* Visible name on mobile — h1 is sr-only above, this is the visual counterpart */}
           <p className="text-[26px] font-bold text-ink leading-tight tracking-tight" aria-hidden="true">
             {profile.name}
           </p>
@@ -145,7 +147,7 @@ function ProfileHeader() {
         </div>
 
         <nav className="flex items-center gap-5 text-[13px] text-ink/60">
-          <a href="https://blog.cearl.cc" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-ink transition-colors py-1">
+          <a href={profile.blog} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-ink transition-colors py-1">
             <svg className="h-4 w-4 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
             </svg>
@@ -157,6 +159,7 @@ function ProfileHeader() {
       {/* Desktop: vertical layout below h1 */}
       <div className="hidden lg:flex lg:flex-col lg:gap-6">
         <div className="h-44 w-44 overflow-hidden rounded-2xl border border-ink/10 shadow-sm">
+          {/* alt="" — decorative, adjacent h1 names the person */}
           <img src={profile.avatar} alt="" className="h-full w-full object-cover" />
         </div>
 
@@ -168,7 +171,7 @@ function ProfileHeader() {
         </div>
 
         <nav className="flex flex-col gap-2.5">
-          <NavLink href="https://blog.cearl.cc" icon="book">博客</NavLink>
+          <NavLink href={profile.blog}>博客</NavLink>
         </nav>
       </div>
     </div>
@@ -177,7 +180,7 @@ function ProfileHeader() {
 
 function Sidebar() {
   return (
-    <aside className="lg:sticky lg:top-8 lg:h-[calc(100vh-4rem)] lg:self-start flex flex-col justify-between">
+    <aside className="lg:sticky lg:top-8 lg:h-[calc(100vh-4rem)] lg:self-start lg:overflow-y-auto flex flex-col justify-between">
       <ProfileHeader />
 
       <div className="hidden lg:block mt-8">
@@ -189,18 +192,14 @@ function Sidebar() {
   )
 }
 
-function NavLink({ href, icon, children }: { href: string; icon: 'book'; children: React.ReactNode }) {
-  const icons = {
-    book: (
-      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
-      </svg>
-    ),
-  }
-
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-[13px] text-ink/60 hover:text-ink transition-colors py-0.5">
-      <span className="opacity-60">{icons[icon]}</span>
+      <span className="opacity-60">
+        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+        </svg>
+      </span>
       {children}
     </a>
   )

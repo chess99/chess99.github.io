@@ -6,6 +6,7 @@ export const profile = {
   bio: '软件工程师，专注 AI 编程与工程效能。写代码、读书、记录。',
   avatar: '/avatar.png',
   email: 'hello@cearl.cc',
+  blog: 'https://blog.cearl.cc',
   social: {
     github: 'https://github.com/chess99',
     jike: 'https://web.okjike.com/u/TODO',
