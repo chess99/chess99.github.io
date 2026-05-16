@@ -1,8 +1,8 @@
+import React from 'react'
 import { profile } from './data/profile'
 import { projects } from './data/projects'
 import {
   IconGitHub,
-  IconMail,
   IconJike,
   IconXiaohongshu,
   IconWechat,
@@ -51,11 +51,11 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 }
 
 function SocialLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
-  const isMailto = href.startsWith('mailto:')
   return (
     <a
       href={href}
-      {...(!isMailto && { target: '_blank', rel: 'noopener noreferrer' })}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={label}
       className="flex h-11 w-11 items-center justify-center rounded-xl border border-ink/[0.12] bg-white/60 text-ink/60 hover:text-ink hover:border-ink/25 hover:bg-white/90 transition-all active:scale-95 shadow-sm"
     >
@@ -64,54 +64,55 @@ function SocialLink({ href, label, children }: { href: string; label: string; ch
   )
 }
 
-function SocialDisabled({ label, children }: { label: string; children: React.ReactNode }) {
+function WechatButton({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = React.useState(false)
   return (
-    <span
-      role="img"
-      aria-label={label}
-      title={label}
-      className="flex h-11 w-11 items-center justify-center rounded-xl border border-ink/[0.08] bg-white/30 text-ink/25 cursor-default shadow-sm"
-    >
-      {children}
-    </span>
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        aria-label="微信公众号"
+        className="flex h-11 w-11 items-center justify-center rounded-xl border border-ink/[0.12] bg-white/60 text-ink/60 hover:text-ink hover:border-ink/25 hover:bg-white/90 transition-all active:scale-95 shadow-sm"
+      >
+        {children}
+      </button>
+      {open && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="bg-white rounded-2xl p-6 flex flex-col items-center gap-3 shadow-xl max-w-[280px] w-full mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img src={profile.social.wechatQr} alt="微信公众号二维码" className="w-48 h-48 object-contain" />
+            <p className="text-[14px] font-medium text-ink/80">极客小屋</p>
+            <p className="text-[12px] text-ink/45">微信扫码关注公众号</p>
+            <button onClick={() => setOpen(false)} className="text-[12px] text-ink/40 hover:text-ink/60 transition-colors">关闭</button>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
-function ProfileHeader() {
-  const isTODO = (url: string) => url.includes('TODO')
 
+function ProfileHeader() {
   const socialIcons = (
     <>
       <SocialLink href={profile.social.github} label="GitHub">
         <IconGitHub className="h-[18px] w-[18px]" />
       </SocialLink>
 
-      {!isTODO(profile.social.jike) ? (
-        <SocialLink href={profile.social.jike} label="即刻">
-          <IconJike className="h-[18px] w-[18px]" />
-        </SocialLink>
-      ) : (
-        <SocialDisabled label="即刻（待补充）">
-          <IconJike className="h-[18px] w-[18px]" />
-        </SocialDisabled>
-      )}
-
-      {!isTODO(profile.social.xiaohongshu) ? (
-        <SocialLink href={profile.social.xiaohongshu} label="小红书">
-          <IconXiaohongshu className="h-[18px] w-[18px]" />
-        </SocialLink>
-      ) : (
-        <SocialDisabled label="小红书（待补充）">
-          <IconXiaohongshu className="h-[18px] w-[18px]" />
-        </SocialDisabled>
-      )}
-
-      <SocialDisabled label="微信公众号（待补充）">
+      <WechatButton>
         <IconWechat className="h-[18px] w-[18px]" />
-      </SocialDisabled>
+      </WechatButton>
 
-      <SocialLink href={`mailto:${profile.email}`} label="Email">
-        <IconMail className="h-[18px] w-[18px]" />
+      <SocialLink href={profile.social.jike} label="即刻">
+        <IconJike className="h-[18px] w-[18px]" />
+      </SocialLink>
+
+      <SocialLink href={profile.social.xiaohongshu} label="小红书">
+        <IconXiaohongshu className="h-[18px] w-[18px]" />
       </SocialLink>
     </>
   )

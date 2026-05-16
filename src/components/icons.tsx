@@ -19,19 +19,13 @@ export function IconMail(props: SVGProps<SVGSVGElement>) {
 
 export function IconJike({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" />
-      <path fill="white" d="M8.5 9.5h7v1.5h-7zM8.5 13h7v1.5h-7z" />
-    </svg>
+    <img src="/icons/jike.svg" alt="即刻" aria-hidden="true" className={className} />
   )
 }
 
 export function IconXiaohongshu({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="4" />
-      <path fill="white" d="M8 8h8v2H8zM8 12h8v2H8zM8 16h5v2H8z" />
-    </svg>
+    <img src="/icons/xhs.png" alt="小红书" aria-hidden="true" className={className} />
   )
 }
 
