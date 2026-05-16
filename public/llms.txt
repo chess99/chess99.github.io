@@ -1,0 +1,28 @@
+# Cearl (cearl.cc)
+
+> 软件工程师，专注 AI 编程与工程效能。个人主页索引站。
+
+## 关于
+
+- 作者：晨笙（Cearl）
+- 域名：cearl.cc
+- 定位：个人索引站，汇聚博客、产品、社交账号入口
+
+## 内容
+
+- 博客：https://blog.cearl.cc — AI 编程、软件工程、技术思考
+- AI Reading：https://reading.cearl.cc — AI 驱动的书籍解读与知识分享平台
+- News Intel：https://news.cearl.cc — 每日 AI 与科技深度资讯，30+ 信源 LLM 批判性分析
+- GitHub：https://github.com/chess99
+
+## 项目
+
+- Tidy：本地照片/视频整理与去重工具 — https://github.com/chess99/tidy
+- MP Lens：微信小程序依赖分析与清理 CLI — https://github.com/chess99/mp-lens
+- MP Component Navigator：VSCode 小程序组件跳转扩展 — https://marketplace.visualstudio.com/items?itemName=mp-kit.mp-component-jumper
+- Trading OS：A 股 AI 辅助研究工作台 — https://github.com/chess99/trading-os
+
+## 联系
+
+- 即刻：https://web.okjike.com/u/769fe2df-5ba4-4618-a486-3a72efac98ba
+- 小红书：https://www.xiaohongshu.com/user/profile/5bfced986b58b74f560b2e23
