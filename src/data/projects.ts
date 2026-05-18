@@ -20,7 +20,7 @@ export const projects: Project[] = [
     id: 'ai-reading',
     title: 'AI Reading',
     description: 'AI 驱动的书籍解读与知识分享平台，全文搜索，标签浏览。',
-    href: 'https://reading.cearl.cc/',
+    href: 'https://read.cearl.cc/',
     tags: ['AI', 'READING'],
     cover: '/covers/ai-reading.png',
   },

@@ -11,7 +11,7 @@
 ## 内容
 
 - 博客：https://blog.cearl.cc — AI 编程、软件工程、技术思考
-- AI Reading：https://reading.cearl.cc — AI 驱动的书籍解读与知识分享平台
+- AI Reading：https://read.cearl.cc — AI 驱动的书籍解读与知识分享平台
 - News Intel：https://news.cearl.cc — 每日 AI 与科技深度资讯，30+ 信源 LLM 批判性分析
 - GitHub：https://github.com/chess99
 
