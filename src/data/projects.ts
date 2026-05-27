@@ -9,20 +9,28 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'ai-reading',
+    title: '晨笙阅读',
+    description: 'AI 驱动的书籍解读与知识分享平台，全文搜索，标签浏览。',
+    href: 'https://read.cearl.cc/',
+    tags: ['AI', 'READING'],
+    cover: '/covers/ai-reading.png',
+  },
+  {
+    id: 'trading-os',
+    title: 'Trading OS',
+    description: 'A 股 AI 辅助研究工作台，Claude Code Skill 驱动的三套独立分析体系。',
+    href: 'https://github.com/chess99/trading-os',
+    tags: ['TRADING', 'AI'],
+    cover: '/covers/trading-os.png',
+  },
+  {
     id: 'news-intel',
     title: 'News Intel',
     description: '每日 AI 与科技深度资讯 pipeline，自动抓取 30+ 信源，LLM 批判性分析。',
     href: 'https://news.cearl.cc',
     tags: ['AI', 'NEWS'],
     cover: '/covers/news-intel.png',
-  },
-  {
-    id: 'ai-reading',
-    title: 'AI Reading',
-    description: 'AI 驱动的书籍解读与知识分享平台，全文搜索，标签浏览。',
-    href: 'https://read.cearl.cc/',
-    tags: ['AI', 'READING'],
-    cover: '/covers/ai-reading.png',
   },
   {
     id: 'tidy',
@@ -47,13 +55,5 @@ export const projects: Project[] = [
     href: 'https://marketplace.visualstudio.com/items?itemName=mp-kit.mp-component-jumper',
     tags: ['TOOL', 'VSCODE', 'WECHAT'],
     cover: '/covers/mp-component-navigator.png',
-  },
-  {
-    id: 'trading-os',
-    title: 'Trading OS',
-    description: 'A 股 AI 辅助研究工作台，Claude Code Skill 驱动的三套独立分析体系。',
-    href: 'https://github.com/chess99/trading-os',
-    tags: ['TRADING', 'AI'],
-    cover: '/covers/trading-os.png',
   },
 ]
