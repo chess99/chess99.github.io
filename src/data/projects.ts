@@ -25,14 +25,6 @@ export const projects: Project[] = [
     cover: '/covers/trading-os.png',
   },
   {
-    id: 'news-intel',
-    title: 'News Intel',
-    description: '每日 AI 与科技深度资讯 pipeline，自动抓取 30+ 信源，LLM 批判性分析。',
-    href: 'https://news.cearl.cc',
-    tags: ['AI', 'NEWS'],
-    cover: '/covers/news-intel.png',
-  },
-  {
     id: 'tidy',
     title: 'Tidy',
     description: '本地照片 / 视频整理与去重工具，以内容哈希为主键，可恢复一致性落盘。',

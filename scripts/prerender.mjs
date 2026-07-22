@@ -1,6 +1,6 @@
 import { readFile, writeFile, rm } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = join(__dirname, '..')
@@ -15,7 +15,8 @@ async function prerender() {
 
     // 2. 加载服务端入口 (SSG Bundle)
     // 注意：需要 import 绝对路径
-    const { render } = await import(join(serverDist, 'entry-server.js'))
+    const serverEntryUrl = pathToFileURL(join(serverDist, 'entry-server.js')).href
+    const { render } = await import(serverEntryUrl)
 
     // 3. 渲染应用为 HTML 字符串
     const appHtml = render()

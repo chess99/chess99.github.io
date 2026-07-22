@@ -225,9 +225,9 @@ export default function App() {
               </div>
             </section>
 
-            {/* 我的产品 */}
+            {/* 我的作品 */}
             <section className="flex flex-col gap-5">
-              <SectionHeading title="我的产品" />
+              <SectionHeading title="我的作品" />
               {/* Mobile: single column with more breathing room; desktop: 3 cols */}
               <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {projects.map((p) => (
