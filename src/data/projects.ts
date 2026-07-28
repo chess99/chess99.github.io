@@ -17,6 +17,14 @@ export const projects: Project[] = [
     cover: '/covers/ai-reading.png',
   },
   {
+    id: 'md2img',
+    title: 'MD2IMG',
+    description: '免费、本地优先的 Markdown 转图片工具，支持代码、公式、图表与多格式导出。',
+    href: 'https://md2img.cearl.cc/',
+    tags: ['TOOL', 'MARKDOWN'],
+    cover: '/covers/md2img.jpg',
+  },
+  {
     id: 'trading-os',
     title: 'Trading OS',
     description: 'A 股 AI 辅助研究工作台，Claude Code Skill 驱动的三套独立分析体系。',
